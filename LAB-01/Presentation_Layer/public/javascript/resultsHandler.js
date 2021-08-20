@@ -1,13 +1,12 @@
 
 const winner=()=>{
-    fetch("https://poll--simulator.herokuapp.com/api/v1/poll/winner")
+    fetch("http://localhost:7000/api/poll/results")
     .then(res=>res.json())
     .then(data=>{
-        const wonele=document.getElementById("won");
-        const lostele=document.getElementById("lost");
-        wonele.innerHTML=data.won;
-        lostele.innerHTML=data.lost;
+        const displayWinner=document.getElementById("won");
+        const displayRunnerUp=document.getElementById("lost");
+        displayWinner.innerHTML=data.won;
+        displayRunnerUp.innerHTML=data.lost;
     })
-}
-
+};
 window.addEventListener("load",winner);

@@ -1,13 +1,14 @@
 import express from "express"
-import { CandidatesController } from "./candidatesController.js";
-import { VotersController } from "./votersController.js";
+import { apiGetAllCandidates, apiAddCandidate, apiGetWinner } from "./candidateController.js";
+import { apiGetAllVoters, apiCastVote } from "./voterController.js";
 const router = express.Router();
 
 router.route("/candidates")
-.get(CandidatesController.apiGetAllCandidates)
-.post(CandidatesController.apiAddCandidate);
+.get(apiGetAllCandidates)
+.post(apiAddCandidate);
 
-router.route("/voters").get(VotersController.apiGetAllVoters);
-router.route("/vote").post(VotersController.apiVote);
-router.route("/winner").get(CandidatesController.getWinner);
-export default router
+router.route("/voters").get(apiGetAllVoters);
+router.route("/cast-vote").post(apiCastVote);
+router.route("/results").get(apiGetWinner);
+
+export default router;

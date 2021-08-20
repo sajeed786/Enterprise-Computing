@@ -4,36 +4,32 @@ import Voter from '../Presentation_Layer/model/Voter.js';
 let candidates=[];
 let voters=[];
 
-export default class PollSimulatorDataAccess{
 
-    static getVoters(){
-        const copyvoters=[...voters];
-        return copyvoters;
+export const getVoters = () => {
+        const votersList=voters.map(voter => {
+            return {...voter};
+        });
+        return votersList;
     }
 
-    static getCandidates(){
-        const copycandidates=candidates.map(candidate=>{
+export const getCandidates = () => {
+        const candidatesList=candidates.map(candidate => {
             return {...candidate}
         })
-        return copycandidates;
+        return candidatesList;
     }
 
-    static addCandidate(candidateId,candidateName,voteCount){
-        const candidate={id:candidateId,name:candidateName,voteCount:voteCount};
+export const registerCandidate = (candidateId,candidateName,voteCount) => {
+        const candidate = new Candidate(candidateId, candidateName, voteCount);    
         candidates.push(candidate);
     }
 
-    static addVoter(voterId){
-        voters.push(voterId);
+export const registerVoter = (voterId) => {
+        const voter = new Voter(voterId);
+        voters.push(voter);
     }
 
-    static getCandidateById(candidate_id)
-    {
-        let candidate;
-        candidates.forEach(c=>{
-            if(c.id===candidate_id)
-            candidate=c;
-        })
-        return candidate;
-    }
-}
+export const updateCandidateVoteCount = (c_id) => {
+    let candidate = candidates.find(c=> c.id == c_id);
+    candidate.voteCount++;
+} 

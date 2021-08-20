@@ -1,13 +1,14 @@
-const displayCandidates = () => {
-  fetch("https://poll--simulator.herokuapp.com/api/v1/poll/candidates")
+
+const displayRegisteredCandidates = () => {
+  fetch("http://localhost:7000/api/poll/candidates")
     .then((res) => res.json())
     .then((data) => {
       if (data.message) {
         document.getElementById("info").innerHTML = data.message;
         return;
       }
-      data.forEach((element) => {
-        const { id, name, voteCount } = element;
+      data.forEach((candidate) => {
+        const { id, name} = candidate;
         const div = document.getElementById("radiobuttons");
         const radio = document.createElement("input");
         radio.setAttribute("type", "radio");
@@ -16,17 +17,17 @@ const displayCandidates = () => {
         radio.setAttribute("required", "required");
         radio.setAttribute("value", id);
         div.appendChild(radio);
-        div.appendChild(document.createTextNode(`${name} (${id})`));
+        div.appendChild(document.createTextNode(`${name} - ${id}`));
         div.appendChild(document.createElement("br"));
         div.appendChild(document.createElement("br"));
       });
     });
 };
 
-window.addEventListener("load", displayCandidates);
+window.addEventListener("load", displayRegisteredCandidates);
 
-const vote = (event) => {
-  event.preventDefault();
+const castVote = (e) => {
+  e.preventDefault();
   const radios = document.getElementsByName("candidates");
   let selected;
   radios.forEach((radio) => {
@@ -43,7 +44,7 @@ const vote = (event) => {
     },
     body: JSON.stringify(body),
   };
-  fetch("https://poll--simulator.herokuapp.com/api/v1/poll/vote", options)
+  fetch("http://localhost:7000/api/poll/cast-vote", options)
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("info").innerHTML = data.message;
@@ -52,4 +53,4 @@ const vote = (event) => {
     });
 };
 
-document.getElementById("vote").addEventListener("click", vote);
+document.getElementById("vote").addEventListener("click", castVote);

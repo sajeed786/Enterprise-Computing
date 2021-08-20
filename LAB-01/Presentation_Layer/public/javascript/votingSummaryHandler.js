@@ -1,12 +1,11 @@
 
-
-const summary=()=>{
-    fetch("https://poll--simulator.herokuapp.com/api/v1/poll/candidates")
+const displaySummary=()=>{
+    fetch("http://localhost:7000/api/poll/candidates")
     .then(res=>res.json())
     .then(data=>{
         const ul=document.getElementById("summary");
         if(data.message)
-        ul.appendChild(document.createTextNode(`${data.message}`));
+            ul.appendChild(document.createTextNode(`${data.message}`));
         else{
             data.forEach(candidate => {
                 const info=`${candidate.name}, ID: ${candidate.id} (${candidate.voteCount} votes)`
@@ -18,4 +17,4 @@ const summary=()=>{
     });
 }
 
-window.addEventListener("load",summary);
+window.addEventListener("load",displaySummary);
