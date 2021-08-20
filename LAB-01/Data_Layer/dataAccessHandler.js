@@ -32,4 +32,4 @@ export const registerVoter = (voterId) => {
 export const updateCandidateVoteCount = (c_id) => {
     let candidate = candidates.find(c=> c.id == c_id);
     candidate.voteCount++;
-} 
+}

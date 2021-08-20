@@ -1,4 +1,4 @@
-**Lab - 01 Assignment : A Poll Simulator**
+Lab - 01 Assignment : A Poll Simulator
 
 According to the problem statement, the source is divided into three sections i.e., Presentation_Layer, Business_Logic and Data_Layer which are the three different sub-directories in this directory.
 
